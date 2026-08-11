@@ -1,0 +1,33 @@
+# This file was created Wed Apr  2 15:11:06 2025
+# Created by:
+#                      :-) GROMACS - gmx order, 2022.5 (-:
+# 
+# Executable:   /usr/local/gromacs/bin/gmx
+# Data prefix:  /usr/local/gromacs
+# Working dir:  /home/pg/Scrivania/FileBatteri/4BrTHYM/FINAL_FILES
+# Command line:
+#   gmx order -f Br_MD_SEMI_5.xtc -s Br_MD_SEMI_5.tpr -d z -n index_OP3.ndx -b 90000 -od 4Br_OP_PROVA3_5.xvg
+# gmx order is part of G R O M A C S:
+#
+# S  C  A  M  O  R  G
+#
+@    title "Deuterium order parameters"
+@    xaxis  label "Atom"
+@    yaxis  label "Scd"
+@TYPE xy
+           1       0.181766
+           2       0.239206
+           3       0.244947
+           4       0.271906
+           5       0.259158
+           6       0.278945
+           7       0.237629
+           8        0.22848
+           9       0.168226
+          10       0.178529
+          11       0.214734
+          12       0.180766
+          13       0.186003
+          14       0.147901
+          15       0.142932
+          16       0.090898

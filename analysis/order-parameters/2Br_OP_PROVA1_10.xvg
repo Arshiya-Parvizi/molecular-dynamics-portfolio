@@ -1,0 +1,30 @@
+# This file was created Thu Apr  3 19:24:18 2025
+# Created by:
+#                      :-) GROMACS - gmx order, 2022.6 (-:
+# 
+# Executable:   /usr/local/gromacs/bin/gmx
+# Data prefix:  /usr/local/gromacs
+# Working dir:  /adanas/parvizi/2BrTHYM_POPC_SEMI_20_02/25_02
+# Command line:
+#   gmx order -f 2BrTHYM_SEMI_10.xtc -s 2BrTHYM_SEMI_10.tpr -d z -b 90000 -n index_OP1.ndx -od 2Br_OP_PROVA1_10.xvg
+# gmx order is part of G R O M A C S:
+#
+# Gnomes, ROck Monsters And Chili Sauce
+#
+@    title "Deuterium order parameters"
+@    xaxis  label "Atom"
+@    yaxis  label "Scd"
+@TYPE xy
+           1       0.247382
+           2        0.23815
+           3       0.261319
+           4       0.244778
+           5       0.273994
+           6       0.228275
+           7       0.222089
+           8       0.195428
+           9       0.209781
+          10       0.256121
+          11        0.22536
+          12        0.23359
+          13       0.191366

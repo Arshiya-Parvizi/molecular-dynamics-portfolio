@@ -1,0 +1,30 @@
+# This file was created Tue Apr  8 14:16:37 2025
+# Created by:
+#                      :-) GROMACS - gmx order, 2022.5 (-:
+# 
+# Executable:   /usr/local/gromacs/bin/gmx
+# Data prefix:  /usr/local/gromacs
+# Working dir:  /home/pg/Scrivania/FileBatteri/LIPIDS/FINAL_FILES/19_02
+# Command line:
+#   gmx order -f LIP_SEMI_3_13_02.xtc -s LIP_SEMI_3_13_02.tpr -d z -n index_OP1.ndx -b 90000 -od LIP_OP_PROVA1_3.xvg
+# gmx order is part of G R O M A C S:
+#
+# GROningen MAchine for Chemical Simulation
+#
+@    title "Deuterium order parameters"
+@    xaxis  label "Atom"
+@    yaxis  label "Scd"
+@TYPE xy
+           1       0.197166
+           2        0.20983
+           3       0.244008
+           4       0.238364
+           5       0.258671
+           6        0.22581
+           7       0.213103
+           8       0.189606
+           9         0.2029
+          10       0.238237
+          11       0.214529
+          12       0.217585
+          13       0.187102

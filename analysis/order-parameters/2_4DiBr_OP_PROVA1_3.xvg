@@ -1,0 +1,30 @@
+# This file was created Wed Apr  2 15:03:22 2025
+# Created by:
+#                      :-) GROMACS - gmx order, 2022.5 (-:
+# 
+# Executable:   /usr/local/gromacs/bin/gmx
+# Data prefix:  /usr/local/gromacs
+# Working dir:  /home/pg/Scrivania/FileBatteri/2_4_dibromo_thymol_POPE_POPG/FINAL_FILES
+# Command line:
+#   gmx order -f ANI_2_4_DiBr_3.xtc -s ANI_2_4_DiBr_3.tpr -d z -n index_OP1.ndx -b 90000 -od 2_4DiBr_OP_PROVA1_3.xvg
+# gmx order is part of G R O M A C S:
+#
+# Great Red Oystrich Makes All Chemists Sane
+#
+@    title "Deuterium order parameters"
+@    xaxis  label "Atom"
+@    yaxis  label "Scd"
+@TYPE xy
+           1       0.188311
+           2       0.191029
+           3       0.216166
+           4       0.203252
+           5       0.226093
+           6       0.194659
+           7       0.185056
+           8       0.167497
+           9       0.179799
+          10       0.217079
+          11       0.199454
+          12       0.204864
+          13       0.177652
