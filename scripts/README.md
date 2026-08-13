@@ -74,3 +74,52 @@ RDF results are interpreted together with the identity of the selected atoms and
 ## Development
 
 Additional scripts will be added for other molecular dynamics analyses such as RMSD, hydrogen bonding, lipid order parameters, and density profiles.
+
+## RMSD Analysis
+
+### `plot_rmsd.py`
+
+This script reads a GROMACS RMSD `.xvg` file and generates a time-series plot together with descriptive statistics.
+
+The script reports:
+
+* number of trajectory data points
+* mean RMSD
+* minimum and maximum RMSD
+* RMSD standard deviation
+* mean RMSD during the final 20% of the trajectory
+* standard deviation during the final 20%
+
+The final 20% is treated as a descriptive late-trajectory window rather than being automatically assumed to represent equilibrium.
+
+Example:
+
+```bash
+python scripts/plot_rmsd.py analysis/rmsd/2Br_POPC_RMSD_10.xvg
+```
+
+### `compare_rmsd.py`
+
+This script compares two or more RMSD trajectories using the same analysis workflow.
+
+Example:
+
+```bash
+python scripts/compare_rmsd.py analysis/rmsd/2Br_POPC_RMSD_10.xvg analysis/rmsd/2Br_POPC_RMSD_7.xvg analysis/rmsd/RMSD_5.xvg analysis/rmsd/RMSD_6.xvg analysis/rmsd/RMSD_7.xvg
+```
+
+The script generates:
+
+```text
+figures/rmsd_comparison.png
+```
+
+and a machine-readable summary:
+
+```text
+analysis/rmsd/rmsd_summary.csv
+```
+
+The CSV contains the final-20%-trajectory mean RMSD and standard deviation for each analyzed file.
+
+Absolute RMSD values should only be compared directly when the underlying atom selections and reference structures are comparable. The scripts therefore emphasize reproducible processing and trajectory behavior rather than assigning stability based solely on RMSD magnitude.
