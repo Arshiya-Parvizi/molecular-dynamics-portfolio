@@ -1,0 +1,8 @@
+file,data_points,mean_hbonds_per_frame,max_hbonds_per_frame,frames_with_hbond,occupancy_percent
+THYM_1_HB_OH_O10.xvg,4001,1.0,1.0,4001,100.0
+THYM_1_HB_OH_O9.xvg,4001,0.0,0.0,0,0.0
+CARV_HB_3_OH_H123.xvg,4001,0.0,0.0,0,0.0
+CARV_HB_3_OH_N4.xvg,4001,0.0,0.0,0,0.0
+2_4DiBr_1_HB_OH_O11.xvg,4001,0.0,0.0,0,0.0
+2_4DiBr_1_HB_OH_OHW.xvg,4001,0.24293926518370407,2.0,719,17.97050737315671
+2Br_7_HB_H13_OHW.xvg,4001,0.0,0.0,0,0.0

@@ -123,3 +123,28 @@ analysis/rmsd/rmsd_summary.csv
 The CSV contains the final-20%-trajectory mean RMSD and standard deviation for each analyzed file.
 
 Absolute RMSD values should only be compared directly when the underlying atom selections and reference structures are comparable. The scripts therefore emphasize reproducible processing and trajectory behavior rather than assigning stability based solely on RMSD magnitude.
+## Hydrogen-Bond Analysis
+
+### `plot_hbonds.py`
+
+This script processes selected GROMACS hydrogen-bond `.xvg` outputs and reports:
+
+- number of analyzed frames
+- mean hydrogen bonds per frame
+- maximum hydrogen bonds observed in a frame
+- number of frames containing at least one hydrogen bond
+- hydrogen-bond occupancy percentage
+
+Occupancy is defined here as the percentage of analyzed trajectory frames in which at least one hydrogen bond is present for the selected interaction.
+
+### `compare_hbonds.py`
+
+This script processes multiple atom-specific hydrogen-bond outputs and generates both a graphical occupancy comparison and a CSV summary.
+
+Outputs:
+
+`figures/hbond_occupancy_comparison.png`
+
+`analysis/hydrogen-bonds/hbond_summary.csv`
+
+Different files correspond to different compounds and atom selections. Therefore, the combined plot is interpreted as a screen of selected molecular interactions rather than a direct ranking of overall compound binding strength.
