@@ -189,3 +189,35 @@ Higher (S_{CD}) values generally indicate greater orientational ordering of the 
 Profiles are interpreted primarily by their segment-by-segment shape and by differences between comparable membrane selections. Absolute values should not be ranked across systems unless the lipid species, atom selections, and indexing scheme are equivalent.
 
 The scripts retain the original research filenames to preserve traceability to the molecular dynamics workflow.
+## Headgroup Distribution Analysis
+
+### `compare-distribution.py`
+
+This script compares selected lipid-headgroup distribution outputs from the molecular dynamics analysis.
+
+The script:
+
+* reads numerical `.xvg` distribution data
+* identifies the global maximum
+* detects positive local peaks
+* reports the strongest populated regions
+* calculates a weighted mean coordinate as a descriptive statistic
+* compares multiple distributions on a single figure
+* exports a CSV summary
+
+Example:
+
+```bash
+python scripts/compare-distribution.py analysis/headgroup-analysis/2_4_DiBr_EG_1_P8.xvg analysis/headgroup-analysis/2_4_DiBr_EG_1_P9.xvg
+```
+
+Outputs:
+
+```text
+figures/headgroup_distribution_comparison.png
+analysis/headgroup-analysis/headgroup_distribution_summary.csv
+```
+
+For multimodal distributions, the locations and magnitudes of individual local peaks are generally more informative than the weighted mean coordinate alone.
+
+Atom labels retain the original research nomenclature. In the thesis workflow, P8 was used as a phosphate-region headgroup reference. Other atom labels are interpreted according to the corresponding molecular system and original atom selections.
