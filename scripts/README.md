@@ -148,3 +148,44 @@ Outputs:
 `analysis/hydrogen-bonds/hbond_summary.csv`
 
 Different files correspond to different compounds and atom selections. Therefore, the combined plot is interpreted as a screen of selected molecular interactions rather than a direct ranking of overall compound binding strength.
+## Lipid Order-Parameter Analysis
+
+### `plot_order_parameter.py`
+
+This script processes GROMACS lipid order-parameter output and plots the segmental deuterium order parameter, (S_{CD}), along the selected lipid tail.
+
+The script reports:
+
+* number of analyzed tail segments
+* mean (S_{CD})
+* minimum (S_{CD}) and its segment
+* maximum (S_{CD}) and its segment
+
+Example:
+
+```bash
+python scripts/plot_order_parameter.py analysis/order-parameters/2Br_OP_PROVA1_10.xvg
+```
+
+### `compare_order_parameters.py`
+
+This script compares multiple lipid order-parameter profiles and exports both a graphical comparison and a numerical summary.
+
+Example:
+
+```bash
+python scripts/compare_order_parameters.py analysis/order-parameters/2Br_OP_PROVA1_10.xvg analysis/order-parameters/2_4DiBr_OP_PROVA1_3.xvg analysis/order-parameters/4Br_OP_PROVA3_5.xvg analysis/order-parameters/LIP_OP_PROVA1_3.xvg
+```
+
+Outputs:
+
+```text
+figures/order_parameter_comparison.png
+analysis/order-parameters/order_parameter_summary.csv
+```
+
+Higher (S_{CD}) values generally indicate greater orientational ordering of the selected lipid-tail segments, while lower values indicate greater orientational freedom.
+
+Profiles are interpreted primarily by their segment-by-segment shape and by differences between comparable membrane selections. Absolute values should not be ranked across systems unless the lipid species, atom selections, and indexing scheme are equivalent.
+
+The scripts retain the original research filenames to preserve traceability to the molecular dynamics workflow.
