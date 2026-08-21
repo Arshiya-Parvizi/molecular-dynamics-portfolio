@@ -221,3 +221,23 @@ analysis/headgroup-analysis/headgroup_distribution_summary.csv
 For multimodal distributions, the locations and magnitudes of individual local peaks are generally more informative than the weighted mean coordinate alone.
 
 Atom labels retain the original research nomenclature. In the thesis workflow, P8 was used as a phosphate-region headgroup reference. Other atom labels are interpreted according to the corresponding molecular system and original atom selections.
+## Density-Profile Analysis
+
+### `compare_density_profiles.py`
+
+This script compares selected density-profile `.xvg` outputs along the simulation coordinate corresponding to the bilayer-normal analysis.
+
+The script:
+
+- reads numerical GROMACS `.xvg` data
+- identifies the global density maximum
+- detects positive local maxima
+- reports the strongest local peaks
+- calculates a weighted mean coordinate as a descriptive statistic
+- plots multiple profiles together
+- exports a numerical CSV summary
+
+Example:
+
+```bash
+python scripts/compare_density_profiles.py analysis/density-profiles/Br_MD_SEMI_2_L.xvg analysis/density-profiles/Br_MD_SEMI_2_W_I.xvg
