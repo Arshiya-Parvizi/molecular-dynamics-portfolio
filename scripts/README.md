@@ -241,3 +241,19 @@ Example:
 
 ```bash
 python scripts/compare_density_profiles.py analysis/density-profiles/Br_MD_SEMI_2_L.xvg analysis/density-profiles/Br_MD_SEMI_2_W_I.xvg
+## Normalized Density Comparison
+
+### `compare_normalized_density.py`
+
+This script compares multiple density profiles after normalizing each profile to its own maximum value.
+
+This is useful when the profiles have very different absolute magnitudes but need to be compared by:
+
+- peak position
+- profile shape
+- relative spatial distribution
+
+Example:
+
+```bash
+python scripts/compare_normalized_density.py analysis/density-profiles/2Br_EG_2_L.xvg analysis/density-profiles/2Br_EG_2_P8.xvg
