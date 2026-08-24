@@ -1,166 +1,353 @@
-# Molecular Dynamics Trajectory Analysis
+# Molecular Dynamics Analysis
 
-This directory contains selected analysis outputs generated during my MSc molecular dynamics research on thymol and thymol-derived compounds interacting with model lipid membranes.
+This directory contains selected processed outputs from an atomistic molecular dynamics study of thymol and structurally related derivatives interacting with lipid membranes.
 
-The analyses were performed primarily using GROMACS trajectory-analysis tools. Multiple atom selections and molecular groups were evaluated for each type of analysis because different atoms probe different aspects of ligand–membrane interactions.
+The purpose of this directory is to provide representative scientific data rather than complete simulation trajectories.
 
-The `.xvg` files retained in this repository are selected research outputs used to demonstrate the analysis workflow. Large trajectories and raw simulation files are intentionally excluded.
-
-## Membrane Systems
-
-Two membrane environments were investigated:
-
-* **POPC membrane** — neutral membrane model
-* **POPE/POPG membrane** — negatively charged bacterial-like membrane model
-
-The compounds investigated were:
-
-* Thymol
-* Carvacrol
-* Thymol acetate
-* 2-Bromothymol
-* 4-Bromothymol
-* 2,4-Dibromothymol
-
-## Analysis Categories
-
-### Radial Distribution Functions — `rdf/`
-
-Radial distribution function (RDF) analysis was used to investigate the spatial relationship between selected ligand atoms and specific atoms or groups within the lipid membrane.
-
-Multiple RDF calculations were performed using different lipid atoms because each selection can provide information about a different region or interaction within the membrane.
-
-The filenames preserve the original atom selections used during the analysis.
-
-Examples include RDF calculations involving:
-
-* P8/P9-related selections
-* O14
-* O15
-* O33
-* O35
-* O36
-* O38
-
-The exact interpretation of an atom label depends on the lipid and simulation system from which the analysis was generated.
+Selected GROMACS `.xvg` outputs are retained so that the accompanying Python workflows can be reproduced and inspected.
 
 ---
 
-### Hydrogen-Bond Analysis — `hydrogen-bonds/`
+## Analysis Overview
 
-Hydrogen-bond analysis was used to investigate polar interactions between the compounds, lipid headgroups, and in some cases interfacial water.
-
-For compounds containing a free phenolic hydroxyl group, the OH group can act as an important hydrogen-bond donor at the membrane interface.
-
-Different donor and acceptor atom selections were analyzed separately. The repository therefore contains several hydrogen-bond output files rather than a single general hydrogen-bond calculation.
-
-Examples include interactions involving ligand hydroxyl groups and selected lipid oxygen or nitrogen atoms, as well as water-mediated interactions.
-
----
-
-### Lipid Order Parameters — `order-parameters/`
-
-Lipid acyl-chain organization was evaluated using order-parameter analysis.
-
-The deuterium order parameter, S_CD, provides information about lipid-tail organization and can reveal whether ligand interaction at the membrane surface propagates into changes in the hydrophobic region of the bilayer.
-
-Different lipid species and carbon selections were evaluated depending on the membrane system.
-
-These analyses were performed using GROMACS order-parameter tools and dedicated atom/index selections.
+| Analysis | Main Question | Data Directory | Portfolio Output |
+|---|---|---|---|
+| **RDF** | At what distances are selected molecular groups preferentially found relative to one another? | `rdf/` | RDF figures and peak analysis |
+| **Hydrogen bonds** | How persistent are selected ligand-lipid or ligand-water interactions? | `hydrogen-bonds/` | Occupancy figures and CSV summary |
+| **RMSD** | How does structural deviation evolve during the analyzed trajectory? | `rmsd/` | RMSD comparison and late-window statistics |
+| **Lipid order parameter** | How does lipid-tail orientational order vary along selected segments? | `order-parameters/` | S_CD profiles and CSV summary |
+| **Headgroup / distribution analysis** | How are selected headgroup-related quantities spatially distributed? | `headgroup-analysis/` | Distribution comparison and peak detection |
+| **Density profiles** | Where are selected components located along the bilayer-normal coordinate? | `density-profiles/` | Raw and normalized density comparisons |
 
 ---
 
-### Headgroup Analysis — `headgroup-analysis/`
+## Why Multiple `.xvg` Files Are Included
 
-The polar lipid headgroup region was investigated using selected structural atom distributions and distances.
+Each `.xvg` file corresponds to a particular simulation, atom selection, molecular group, or structural observable.
 
-One important headgroup descriptor used in the research was the distance involving the lipid phosphate region. In the thesis notation, P8 represents a phosphate atom used as a membrane-headgroup reference.
+Multiple files within one analysis category are intentional.
 
-P8/P9-related output files are retained with their original research filenames so that they can later be linked to the corresponding topology/index definitions.
+They allow different molecular questions to be examined independently without combining physically different selections into one dataset.
 
-This analysis was used to investigate ligand-associated changes in the organization of the membrane interface.
-
----
-
-### RMSD — `rmsd/`
-
-Root-mean-square deviation (RMSD) calculations were performed on selected systems as part of trajectory assessment.
-
-The included `.xvg` outputs provide examples of the structural evolution observed during molecular dynamics simulations.
-
-Multiple RMSD files correspond to different simulation systems or independent trajectories.
+The original research filenames are retained wherever practical to preserve traceability to the molecular dynamics workflow.
 
 ---
 
-### Density Profiles — `density-profiles/`
+# RDF
 
-Mass-density profiles were used to determine the position of compounds and membrane components relative to the lipid bilayer.
+Radial distribution functions describe how the local concentration of one selected atom or group varies with distance from another reference selection.
 
-The profiles were calculated along the **z-axis**, corresponding to the membrane-normal direction.
+The portfolio RDF workflow:
 
-Density distributions of selected components such as:
+- reads numerical GROMACS `.xvg` data
+- ignores Grace/GROMACS metadata lines
+- plots `g(r)` as a function of distance
+- identifies the strongest positive RDF peak
+- reports the corresponding peak distance
+- preserves all-zero datasets without assigning a false positive peak
 
-* ligand
-* lipid headgroup region
-* lipid membrane
-* water
+A value of:
 
-can be compared to determine whether a compound remains near the membrane interface or penetrates more deeply toward the hydrophobic core.
+```text
+g(r) > 1
+```
 
-Representative density-profile data will be added to this directory separately.
+indicates enrichment relative to the reference bulk distribution.
 
-## Why Multiple Files Are Included
+A strong RDF peak identifies a preferred spatial separation between the selected groups.
 
-The presence of several files for a single analysis type is intentional.
+RDF results are **not interpreted as proof of binding by themselves**.
 
-Molecular dynamics analysis often requires examining multiple atom selections rather than treating the membrane or ligand as a single object.
+They should be considered together with atom identity, hydrogen bonding, density profiles, ligand position, and other structural information.
 
-For example, separate RDF or hydrogen-bond calculations can be used to investigate interactions with different functional groups or regions of the lipid headgroup.
+---
 
-Therefore, these files represent different molecular questions and atom selections rather than redundant copies of the same calculation.
+# Hydrogen-Bond Analysis
 
-## File Naming
+Hydrogen-bond files contain selected interactions involving ligand, membrane, or solvent atoms.
 
-Most filenames preserve the original names used during the research workflow.
+The portfolio scripts calculate:
 
-Typical elements include:
+- number of analyzed frames
+- mean hydrogen bonds per frame
+- maximum hydrogen bonds observed
+- number of frames with at least one hydrogen bond
+- occupancy percentage
 
-* compound abbreviation
-* simulation or replicate number
-* analysis type
-* selected atom or molecular group
+Occupancy is defined here as:
 
-Examples:
+```text
+percentage of analyzed frames containing at least one hydrogen bond
+```
 
-`rdf_2_4DiBr_2_O15.xvg`
+This is useful for identifying whether a selected donor-acceptor interaction is:
 
-indicates an RDF analysis involving the 2,4-dibromothymol system and an O15 atom selection.
+- persistent
+- intermittent
+- rare
+- absent
 
-`CARV_HB_3_OH_N4.xvg`
+Different files often correspond to different atom pairs.
 
-indicates a hydrogen-bond analysis involving a carvacrol system and selected OH/N4 groups.
+For this reason, a combined occupancy plot is treated as an **interaction-specific screen**, not as a simple overall ranking of compound binding strength.
 
-The original filenames are retained to preserve traceability to the simulation workflow.
+Hydrogen-bond interpretation is strongest when combined with ligand localization and density information.
 
-## Data Format
+---
 
-Most numerical outputs in this directory use the GROMACS `.xvg` format.
+# RMSD
 
-These files generally contain:
+Root-mean-square deviation is used as a descriptive structural stability metric for selected trajectory groups.
 
-* metadata generated by GROMACS
-* axis information
-* series labels where available
-* numerical analysis data
+The scripts calculate:
 
-The `.xvg` files can be viewed using Grace-compatible software or parsed programmatically.
+- number of trajectory points
+- mean RMSD
+- minimum RMSD
+- maximum RMSD
+- standard deviation
+- mean RMSD over the final 20% of the trajectory
+- standard deviation over the final 20%
 
-A later part of this portfolio will demonstrate how these outputs can be imported, processed, and visualized reproducibly using Python.
+The final 20% is used as a descriptive **late-trajectory window**.
 
-## Data Availability
+It is not automatically assumed to represent thermodynamic equilibration.
 
-This repository contains selected analysis-level data only.
+Absolute RMSD values should only be compared directly when:
 
-Large or raw simulation files such as trajectories, checkpoint files, run-input files, and complete simulation datasets are not distributed through this public portfolio.
+- atom selections are comparable
+- reference structures are comparable
+- fitting procedures are comparable
 
-The purpose of the repository is to demonstrate the molecular dynamics workflow, analysis strategy, scientific interpretation, and development of reproducible computational analysis skills.
+Therefore, the portfolio emphasizes trajectory behavior and late-stage fluctuation rather than labeling a system as simply "good" or "bad" from its absolute RMSD value.
+
+---
+
+# Lipid Order Parameter
+
+The lipid-tail order parameter, S_CD, describes orientational ordering along selected lipid-chain segments.
+
+The portfolio scripts report:
+
+- number of analyzed segments
+- mean S_CD
+- minimum S_CD
+- segment containing the minimum
+- maximum S_CD
+- segment containing the maximum
+
+The profiles can also be compared across selected systems.
+
+In general:
+
+```text
+higher S_CD -> greater orientational ordering
+lower S_CD  -> greater orientational freedom
+```
+
+This should not be simplified into "higher is better" or "lower is worse."
+
+The order parameter describes membrane organization rather than performance.
+
+Direct numerical comparison is most meaningful when the analyzed files use comparable:
+
+- lipid species
+- lipid tails
+- atom selections
+- segment definitions
+- indexing schemes
+
+---
+
+# Headgroup / Distribution Analysis
+
+Selected headgroup-related distribution files are analyzed using global and local peak detection.
+
+The comparison workflow reports:
+
+- global maximum
+- coordinate of the global maximum
+- weighted mean coordinate
+- number of positive local peaks
+- strongest local peaks
+
+For a simple single-peaked distribution, a weighted mean may provide a useful descriptive center.
+
+For a **multimodal distribution**, however, the weighted mean may fall between physically populated regions.
+
+In those cases, individual local peak positions and their magnitudes are more informative.
+
+Original atom labels are retained in the repository.
+
+P8 is used as a phosphate-region reference in the research workflow.
+
+Other labels are not assigned a chemical identity unless that identity can be verified from the underlying molecular system or original atom selection.
+
+---
+
+# Density Profiles
+
+Density profiles describe the spatial distribution of selected simulation components along the coordinate corresponding to the bilayer-normal analysis.
+
+In the original molecular dynamics workflow, density profiles were used to examine how ligands and membrane components were distributed relative to membrane regions.
+
+The portfolio contains two complementary approaches.
+
+## Raw Density Comparison
+
+`compare_density_profiles.py` preserves the original profile amplitudes.
+
+The script reports:
+
+- global maximum density
+- coordinate of the maximum
+- weighted mean coordinate
+- number of positive local peaks
+- strongest local peaks
+
+Raw profiles are useful when the magnitude and shape of the original distribution are both relevant.
+
+For multimodal or periodically split profiles, the weighted mean should be interpreted cautiously because it may fall between populated regions.
+
+---
+
+## Normalized Density Comparison
+
+`compare_normalized_density.py` divides every profile by its own maximum:
+
+```text
+normalized value = original value / maximum value
+```
+
+The maximum of every normalized curve is therefore:
+
+```text
+1.0
+```
+
+This is useful when two components have very different absolute density magnitudes.
+
+Normalization emphasizes:
+
+- peak position
+- profile shape
+- spatial overlap
+- multimodal structure
+
+Normalization removes information about absolute magnitude and therefore should not be used to compare total density between components.
+
+It is primarily a visualization tool for spatial comparison.
+
+---
+
+# Scientific Interpretation
+
+No single molecular dynamics observable is treated as definitive evidence of mechanism.
+
+The analyses are complementary:
+
+```text
+Distance
+   |
+   +--> Where is the ligand?
+   |
+Hydrogen bonding
+   |
+   +--> Which polar interactions may stabilize it?
+   |
+RDF
+   |
+   +--> Which spatial separations are preferred?
+   |
+Density
+   |
+   +--> How are components distributed across the membrane?
+   |
+Order parameter
+   |
+   +--> Does membrane-tail organization change?
+   |
+RMSD
+   |
+   +--> How does structural deviation evolve?
+```
+
+Interpretation is based on the combined behavior of these observables.
+
+---
+
+# Reproducibility
+
+Python analysis tools are located in:
+
+```text
+scripts/
+```
+
+Generated figures are stored in:
+
+```text
+figures/
+```
+
+Machine-readable numerical summaries are stored as CSV files in the corresponding analysis directories.
+
+Examples include:
+
+```text
+analysis/rmsd/rmsd_summary.csv
+analysis/hydrogen-bonds/hbond_summary.csv
+analysis/order-parameters/order_parameter_summary.csv
+analysis/headgroup-analysis/headgroup_distribution_summary.csv
+analysis/density-profiles/density_profile_summary.csv
+```
+
+Python dependencies are listed in:
+
+```text
+requirements.txt
+```
+
+Install them from the repository root using:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+---
+
+# Data Availability
+
+This repository contains selected processed analysis outputs suitable for demonstrating the analytical workflow.
+
+Large molecular dynamics production files are intentionally excluded.
+
+Examples include:
+
+```text
+.xtc
+.trr
+.tpr
+.cpt
+.edr
+.gro
+```
+
+Selected `.xvg` files are included because they are small, human-readable analysis outputs that allow the Python workflows to be demonstrated without distributing complete trajectories.
+
+---
+
+# Portfolio Scope
+
+The Python tools in this repository were developed as reproducibility and portfolio extensions around selected molecular dynamics analysis outputs.
+
+They are not presented as the original scripts used to generate every result in the thesis.
+
+Their purpose is to demonstrate:
+
+- scientific programming
+- analysis automation
+- reproducible plotting
+- numerical summarization
+- data interpretation
+- Git-based research organization
