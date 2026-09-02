@@ -159,6 +159,26 @@ Instructions for running the Python tools are available in:
 
 [`scripts/README.md`](scripts/README.md)
 
+## Interactive Analysis Walkthrough
+
+A Jupyter notebook is included to demonstrate one analysis from processed GROMACS output through numerical interpretation and visualization.
+
+### RDF: Thymol - P8
+
+[`notebooks/rdf_analysis_walkthrough.ipynb`](notebooks/rdf_analysis_walkthrough.ipynb)
+
+The notebook demonstrates:
+
+- reading a GROMACS `.xvg` file
+- removing metadata lines
+- extracting RDF coordinates and values
+- identifying the strongest RDF peak
+- locating the peak at approximately **0.468 nm**
+- visualizing the RDF directly in the notebook
+- interpreting the result with appropriate scientific caution
+
+The notebook complements the reusable Python scripts by showing the analysis step-by-step in an interactive format.
+
 ---
 
 ## Molecular Dynamics Workflow
